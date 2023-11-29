@@ -1,6 +1,8 @@
 # ----- DB Configuration -----
 # Just a better reference for dev.db, no functional use(yet)
-[compact_main]
+# ↓ DB name("dev".db)
+#         ↓ Table name
+[dev.compact_main]
 c1_pk = "id INTEGER PRIMARY KEY ASC"
 c2 = "type"
 c3 = "name"
@@ -9,16 +11,16 @@ c5 = "creator"
 c6 = "createdTime"
 c7 = "relatedBoard"
 c8 = "relatedClass"
-c9 = "status"
+c9 = "state"
 
-[log_action]
+[dev.log_action]
 c1_pk = "id INTEGER PRIMARY KEY ASC"
 c2 = "uid" # UNIQUE
 c3 = "commitTime"
 c4 = "type"
 c5 = "commitedAction"
 c6 = "operator"
-c7 = "state"
+c7 = "status"
 
 
 # ----- App Configuration -----
@@ -36,13 +38,11 @@ Start_as_LLM_server = false
 
 
 # ----- Some Notes -----
-# compact_main.status:
+# compact_main.state:
 #   10 = alive
 #   -10 = deleted
 
-# log_action.state:
-#   10 = successfully committed
-#   -10 = committed failed
+# log_action.status:
 
 
 # Set integer prime key: <columnName> INTEGER PRIMARY KEY ASC
@@ -52,18 +52,30 @@ Start_as_LLM_server = false
 
 
 # ----- used sqls -----
-# CREATE TABLE "main" (
+# CREATE TABLE "compact_main" (
 # 	"id"	INTEGER NOT NULL,
-# 	"type"	TEXT NOT NULL,
+# 	"type"	INTEGER NOT NULL,
 # 	"name"	TEXT NOT NULL,
 # 	"dscrp"	TEXT NOT NULL,
 # 	"creator"	TEXT NOT NULL,
 # 	"createdTime"	TEXT NOT NULL,
 # 	"relatedBoard"	TEXT NOT NULL,
 # 	"relatedClass"	TEXT NOT NULL,
-# 	"alive"	INTEGER NOT NULL,
+# 	"state"	INTEGER NOT NULL,
 # 	PRIMARY KEY("id" AUTOINCREMENT)
 # );
+
+# CREATE TABLE "log_action" (
+# 	"id"	INTEGER NOT NULL,
+# 	"uid"	TEXT NOT NULL,
+# 	"commitTime"	TEXT NOT NULL,
+# 	"type"	TEXT NOT NULL,
+# 	"action"	TEXT NOT NULL,
+# 	"operator"	TEXT NOT NULL,
+# 	"status"	TEXT NOT NULL,
+# 	PRIMARY KEY("id" AUTOINCREMENT)
+# );
+
 
 # INSERT INTO compact_main VALUES(null, 'class', 'CL1', 'dscrp', 'n.HE', datetime('now'), 'KB1, KB2', '', 'alive');
 

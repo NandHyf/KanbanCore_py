@@ -1,14 +1,9 @@
-import Alt, Stateful
+import kbc_alt 
+import Stateful
 import datetime
 
 
 class kbc_controller():
-    def get_config():
-        tomls = Stateful.MatchTomlTable("dev.toml", "app_config", "dict")
-        global app_config
-        app_config = tomls["app_config"]
-
-
     def get_help():
         pass
     
@@ -17,14 +12,14 @@ class kbc_controller():
 
 
     # [todo 3]
-    def InUTC(timeZone=0):
+    def InUTC(timeZone:int=0):
         dt_now_UTC0 = str(datetime.datetime.now(datetime.timezone.utc))
         return(dt_now_UTC0)
     
 
     # [todo 2]
     # 前端只检查输入数量正确, 内容正确统一代回后端检查
-    def InputCheck(inputs):
+    def InputHandler():
         pass
 
 
@@ -36,16 +31,6 @@ class kbc_controller():
             
             # [todo 1]
             # Controller.InputCheck(app_commands)
-            if len(app_commands) < 5:
-                # Add CurrentPath && DBType && Path
-                app_commands.append(currentPath)
-                app_commands.append(app_config["dbPath"])
-                app_commands.append(app_config["dbType"])
-
-                Stateful.Handler(app_commands)
-
-            elif len(app_commands) >= 5:
-                print("app_commands >5 error")
 
 
     # [todo 4]
@@ -57,15 +42,12 @@ class kbc_controller():
 
     # [todo 4]
     def start():
-        # 0. init
-        
-        # 1. get config
-        kbc_controller.get_config()
+        pass
 
-        # 2.
-        startState = Stateful.Handler(['/', app_config["dbPath"], app_config["dbType"]])
-        print(startState)
-        kbc_controller.TransitCommand()
+        # 2. Valid DB
+        # startState = Stateful.Translator(['/', app_config["dbPath"], app_config["dbType"]])
+        # print(startState)
+        # kbc_controller.TransitCommand()
 
 
 class View:
@@ -87,6 +69,4 @@ class LLM():
 
 
 if __name__ == "__main__":
-    # Controller.start()
-    kbc_controller.get_config()
-    
+    kbc_controller.start()   
