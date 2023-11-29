@@ -1,0 +1,81 @@
+# ----- App Configuration -----
+StrictMode = true
+
+DBType = "sqlite3"
+DBPath = "dev.db"
+
+Lang = "en"
+ListStyle = "tree"
+DisplayTimeZone = "utc+8"
+
+Start_as_LLM_server = false
+
+
+# ----- DB Configuration -----
+# Just a better reference for dev.db, no functional use(yet)
+[compact_main]
+c1_pk = "id INTEGER PRIMARY KEY ASC"
+c2 = "type"
+c3 = "name"
+c4 = "dscrp"
+c5 = "creator"
+c6 = "createdTime"
+c7 = "relatedBoard"
+c8 = "relatedClass"
+c9 = "status"
+
+[log_action]
+c1_pk = "id INTEGER PRIMARY KEY ASC"
+c2 = "uid" # UNIQUE
+c3 = "commitTime"
+c4 = "type"
+c5 = "commitedAction"
+c6 = "operator"
+c7 = "state"
+
+
+# ----- Some Notes -----
+# compact_main.status:
+#   -10 = deleted
+#    10 = alive
+
+# log_action.state:
+#   -10 = committed failed
+#    10 = successfully committed
+
+# Set integer prime key: <columnName> INTEGER PRIMARY KEY ASC
+# status: alive/deleted/unclassified(event only)
+#                                           ↓ Don't foget to write the method(s) for it
+# ListStyle: tree/md_table/LLM_md_table/<customName>
+
+
+# ----- used sqls -----
+# CREATE TABLE "main" (
+# 	"id"	INTEGER NOT NULL,
+# 	"type"	TEXT NOT NULL,
+# 	"name"	TEXT NOT NULL,
+# 	"dscrp"	TEXT NOT NULL,
+# 	"creator"	TEXT NOT NULL,
+# 	"createdTime"	TEXT NOT NULL,
+# 	"relatedBoard"	TEXT NOT NULL,
+# 	"relatedClass"	TEXT NOT NULL,
+# 	"alive"	INTEGER NOT NULL,
+# 	PRIMARY KEY("id" AUTOINCREMENT)
+# );
+
+# INSERT INTO compact_main VALUES(null, 'class', 'CL1', 'dscrp', 'n.HE', datetime('now'), 'KB1, KB2', '', 'alive');
+
+# SELECT name FROM compact_main WHERE belongBoard like '%KB1%'
+# SELECT name, dscrp FROM compact_main WHERE dscrp like '%KB1%'
+# SELECT name, dscrp FROM compact_main WHERE dscrp like '%_%KB1%'
+
+# INSERT INTO compact_main VALUES(null, 'class', 'CL2', '_usingBoard:KB1, KB2', 'n.HE', datetime('now'), '', '', 'alive');
+# UPDATE main SET relatedBoard='KB1, KB2' WHERE type='class' AND name='CL2'
+# SELECT name FROM main WHERE type='class' AND relatedBoard like '%KB2%'
+
+# delete class 3 combo:
+# UPDATE compact_main SET relatedBoard = replace(relatedBoard, 'KB2, ', '')  WHERE type='class' AND relatedBoard like '%KB2, %';
+# UPDATE compact_main SET relatedBoard = replace(relatedBoard, ', KB2', '')  WHERE type='class' AND relatedBoard like '%, KB2%';
+# UPDATE compact_main SET relatedBoard = replace(relatedBoard, 'KB2', '')  WHERE type='class' AND relatedBoard like '%KB2%';
+
+# Explanation of abbreviations
