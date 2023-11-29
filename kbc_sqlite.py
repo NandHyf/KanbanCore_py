@@ -66,7 +66,7 @@ class RM():
 
 
     def delete(self): # 1. withstate:int=10? 2. withStatement >= or > or <?
-        return "UPDATE compact_main SET state=-10 WHERE type='{d.type}' AND name='{d.name}' AND relatedBoard='{d.relatedBoard}' AND relatedClass='{d.relatedClass}' AND state=10;".format(d=self)
+        return "UPDATE compact_main SET state=-10 WHERE type='{d.type}' AND name='{d.name}' AND relatedBoard='{d.relatedBoard}' AND relatedClass='{d.relatedClass}' AND state={d.state};".format(d=self)
 
 
     def edit(self, editColumn:str="", editValue:str=""):
@@ -74,11 +74,11 @@ class RM():
     
 
     def edit_state(self, editValue:int=-10):
-        return "UPDATE compact_main SET state={ev} WHERE type='{e.type}' AND name='{e.name}' AND relatedBoard='{e.relatedBoard}' AND relatedClass='{e.relatedClass}' AND state={e.state};".format(ec=editColumn, ev=editValue, e=self)
+        return "UPDATE compact_main SET state={ev} WHERE type='{e.type}' AND name='{e.name}' AND relatedBoard='{e.relatedBoard}' AND relatedClass='{e.relatedClass}' AND state={e.state};".format(ev=editValue, e=self)
 
 
     def move(self, moveColumn:str="", moveValue:str=""):
-        return "UPDATE compact_main SET {mc}='{mv}' WHERE type='{m.type}' AND name='{m.name}' AND relatedBoard='{m.relatedBoard}' AND relatedClass='{m.relatedClass}' AND state=10;".format(mc=moveColumn, mv=moveValue, m=self)
+        return "UPDATE compact_main SET {mc}='{mv}' WHERE type='{m.type}' AND name='{m.name}' AND relatedBoard='{m.relatedBoard}' AND relatedClass='{m.relatedClass}' AND state={m.state};".format(mc=moveColumn, mv=moveValue, m=self)
 
 
     def back(self, selectColumn:str="name"):
