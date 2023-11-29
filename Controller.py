@@ -39,6 +39,10 @@ class kbc_controller():
         # 1. 先检查是否已经存在DB? y/n?
         # 2. 连接性检查（是否要切换到新建的DB）y/n?
 
+    
+    def makeLog():
+        pass
+
 
     # [todo 4]
     def start():
