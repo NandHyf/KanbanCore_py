@@ -2,41 +2,18 @@ import Alt, Stateful
 import datetime
 
 
-class kbc_config():
-    def __init__(self) -> None:
-        global configs
-        configs = {}
-
+class kbc_controller():
     def get_config():
-        pass
+        tomls = Stateful.MatchTomlTable("dev.toml", "app_config", "dict")
+        global app_config
+        app_config = tomls["app_config"]
+
 
     def get_help():
         pass
     
     def rewrite_config():
         pass
-
-
-class Client():
-
-    def get_config():
-        # [todo 4]
-        c = ['DBType', 'DBPath', 'lang', 'listStyle', 'displayTimeZone']
-        # rl == 'r'eturn 'l'ist
-        rl = Stateful.MatchTomlKeys("dev.toml", c)
-        
-        global lang, listStyle, dbType, dbPath, displayTimeZone, currentPath
-        dbType = rl[0]
-        dbPath = rl[1]
-        lang = rl[2]
-        listStyle = rl[3]
-        displayTimeZone = rl[4]
-        currentPath = ""
-
-
-    # [todo 4]
-    def get_help():
-        print(Stateful.MatchTomlKey("clean_config.toml", lang, "command-help"))
 
 
     # [todo 3]
@@ -58,12 +35,12 @@ class Client():
             # Input exception check
             
             # [todo 1]
-            # Client.InputCheck(app_commands)
+            # Controller.InputCheck(app_commands)
             if len(app_commands) < 5:
                 # Add CurrentPath && DBType && Path
                 app_commands.append(currentPath)
-                app_commands.append(dbPath)
-                app_commands.append(dbType)
+                app_commands.append(app_config["dbPath"])
+                app_commands.append(app_config["dbType"])
 
                 Stateful.Handler(app_commands)
 
@@ -83,12 +60,12 @@ class Client():
         # 0. init
         
         # 1. get config
-        Client.get_config()
+        kbc_controller.get_config()
 
         # 2.
-        startState = Stateful.Handler(['/', dbPath, dbType])
+        startState = Stateful.Handler(['/', app_config["dbPath"], app_config["dbType"]])
         print(startState)
-        Client.TransitCommand()
+        kbc_controller.TransitCommand()
 
 
 class View:
@@ -110,6 +87,6 @@ class LLM():
 
 
 if __name__ == "__main__":
-    # Client.start()
-    Stateful.oc["dt"] = "s"
+    # Controller.start()
+    kbc_controller.get_config()
     

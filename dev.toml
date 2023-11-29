@@ -1,16 +1,3 @@
-# ----- App Configuration -----
-StrictMode = true
-
-DBType = "sqlite3"
-DBPath = "dev.db"
-
-Lang = "en"
-ListStyle = "tree"
-DisplayTimeZone = "utc+8"
-
-Start_as_LLM_server = false
-
-
 # ----- DB Configuration -----
 # Just a better reference for dev.db, no functional use(yet)
 [compact_main]
@@ -34,14 +21,29 @@ c6 = "operator"
 c7 = "state"
 
 
+# ----- App Configuration -----
+[app_config]
+StrictMode = true
+
+DBType = "sqlite3"
+DBPath = "dev.db"
+
+Lang = "en"
+ListStyle = "tree"
+DisplayTimeZone = "utc+8"
+
+Start_as_LLM_server = false
+
+
 # ----- Some Notes -----
 # compact_main.status:
+#   10 = alive
 #   -10 = deleted
-#    10 = alive
 
 # log_action.state:
+#   10 = successfully committed
 #   -10 = committed failed
-#    10 = successfully committed
+
 
 # Set integer prime key: <columnName> INTEGER PRIMARY KEY ASC
 # status: alive/deleted/unclassified(event only)

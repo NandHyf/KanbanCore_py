@@ -5,18 +5,18 @@ import tomlkit, sqlite3
 
 # ----- Operating Cursor -----
 oc = {
-    "dt":str, 
-    "dp":str,
+    "dt":str, # DBType
+    "dp":str, # DBPath
 
-    "cp":list, 
-    "pp":list,
+    "cp":list, # CurrentPath
+    "pp":list, # PreviousPath
 
     "next_move":str,
 
-    "tp":list, 
-    "tp_in":list, 
-    "tp_to":list, 
-    "tp_attr":str
+    "tp":list, # TargetPath
+    "tp_in":list, # ~ after command parameter "in"(&& before command parameter "to")
+    "tp_to":list, # ~ after command parameter "to"
+    "tp_attr":str # ~ like "-name" in "edit -name oldName to newName"
     }
 # some thoughts:
 # class oc():
@@ -35,7 +35,7 @@ def GetTomlDoc(tomlName:str):
 
             return doc
         
-    except:
+    except FileNotFoundError:
         input("error 0: could not found correct config file") 
         exit()
     
