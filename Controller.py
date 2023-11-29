@@ -50,15 +50,6 @@ class kbc_controller():
         # kbc_controller.TransitCommand()
 
 
-class View:
-    def ToDisplayTime(utcTime, TimeZone):
-        displayTime = "displayTime translation not finished"
-        return displayTime
-    
-    def Refresh():
-        pass
-
-
 # For ChatGLM3-6B
 class LLM():
     def call():

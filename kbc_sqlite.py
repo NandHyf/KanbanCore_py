@@ -27,7 +27,7 @@ def isExist(dbPath:str, tableName:str, capitalize:bool=False, itemName:str="", r
         tableName = tableName.capitalize()
 
     sqls = "SELECT name FROM {table} WHERE name='{name}'".format(table=tableName, name=itemName)
-    ie = Exec_one(dbPath, sqls)
+    ie = exec_one(dbPath, sqls)
 
     if ie != [] and returnBool == False:
         return ie
@@ -58,51 +58,35 @@ class RM():
 
     
     def select(self, selectColumn:str="name"):
-        sqls = "SELECT {sc} FROM compact_main WHERE type='{s.type}' AND name='{s.name}' AND realatedBoard='{s.relatedBoard}' AND relatedClass='{s.relatedClass}' AND state={s.state};".format(sc=selectColumn, s=self)                                              
-        
-        return sqls
+        return "SELECT {sc} FROM compact_main WHERE type='{s.type}' AND name='{s.name}' AND realatedBoard='{s.relatedBoard}' AND relatedClass='{s.relatedClass}' AND state={s.state};".format(sc=selectColumn, s=self)
     
 
     def add(self):
-        sqls = "INSERT INTO compact_main VALUES({a.id}, '{a.type}', '{a.name}', '{a.dscrp}', '{a.creator}', '{a.createdTime}', '{a.relatedBoard}', '{a.relatedClass}', {a.state});".format(a=self)
-
-        return sqls
+        return "INSERT INTO compact_main VALUES({a.id}, '{a.type}', '{a.name}', '{a.dscrp}', '{a.creator}', '{a.createdTime}', '{a.relatedBoard}', '{a.relatedClass}', {a.state});".format(a=self)
 
 
     def delete(self): # 1. withstate:int=10? 2. withStatement >= or > or <?
-        sqls = "UPDATE compact_main SET state=-10 WHERE type='{d.type}' AND name='{d.name}' AND relatedBoard='{d.relatedBoard}' AND relatedClass='{d.relatedClass}' AND state=10;".format(d=self)
-
-        return sqls
+        return "UPDATE compact_main SET state=-10 WHERE type='{d.type}' AND name='{d.name}' AND relatedBoard='{d.relatedBoard}' AND relatedClass='{d.relatedClass}' AND state=10;".format(d=self)
 
 
     def edit(self, editColumn:str="", editValue:str=""):
-        sqls = "UPDATE compact_main SET {ec}='{ev}' WHERE type='{e.type}' AND name='{e.name}' AND relatedBoard='{e.relatedBoard}' AND relatedClass='{e.relatedClass}' AND state={e.state};".format(ec=editColumn, ev=editValue, e=self)
-
-        return sqls
+        return "UPDATE compact_main SET {ec}='{ev}' WHERE type='{e.type}' AND name='{e.name}' AND relatedBoard='{e.relatedBoard}' AND relatedClass='{e.relatedClass}' AND state={e.state};".format(ec=editColumn, ev=editValue, e=self)
     
 
-    def edit_state(self, editColumn:str="", editValue:int=-10):
-        sqls = "UPDATE compact_main SET {ec}='{ev}' WHERE type='{e.type}' AND name='{e.name}' AND relatedBoard='{e.relatedBoard}' AND relatedClass='{e.relatedClass}' AND state={e.state};".format(ec=editColumn, ev=editValue, e=self)
-
-        return sqls
+    def edit_state(self, editValue:int=-10):
+        return "UPDATE compact_main SET state={ev} WHERE type='{e.type}' AND name='{e.name}' AND relatedBoard='{e.relatedBoard}' AND relatedClass='{e.relatedClass}' AND state={e.state};".format(ec=editColumn, ev=editValue, e=self)
 
 
     def move(self, moveColumn:str="", moveValue:str=""):
-        sqls = "UPDATE compact_main SET {mc}='{mv}' WHERE type='{m.type}' AND name='{m.name}' AND relatedBoard='{m.relatedBoard}' AND relatedClass='{m.relatedClass}' AND state=10;".format(mc=moveColumn, mv=moveValue, m=self)
-        
-        return sqls
+        return "UPDATE compact_main SET {mc}='{mv}' WHERE type='{m.type}' AND name='{m.name}' AND relatedBoard='{m.relatedBoard}' AND relatedClass='{m.relatedClass}' AND state=10;".format(mc=moveColumn, mv=moveValue, m=self)
 
 
     def back(self, selectColumn:str="name"):
-        sqls = "SELECT {sc} FROM compact_main WHERE type='{s.type}' AND name='{s.name}' AND realatedBoard='{s.relatedBoard}' AND relatedClass='{s.relatedClass}' AND state={s.state};".format(sc=selectColumn, s=self)                                              
-        
-        return sqls
+        return "SELECT {sc} FROM compact_main WHERE type='{s.type}' AND name='{s.name}' AND realatedBoard='{s.relatedBoard}' AND relatedClass='{s.relatedClass}' AND state={s.state};".format(sc=selectColumn, s=self)
 
 
     def export(self, selectColumn:str="name"):
-        sqls = "SELECT {sc} FROM compact_main WHERE type='{s.type}' AND name='{s.name}' AND realatedBoard='{s.relatedBoard}' AND relatedClass='{s.relatedClass}' AND state={s.state};".format(sc=selectColumn, s=self)                                              
-        
-        return sqls
+        return "SELECT {sc} FROM compact_main WHERE type='{s.type}' AND name='{s.name}' AND realatedBoard='{s.relatedBoard}' AND relatedClass='{s.relatedClass}' AND state={s.state};".format(sc=selectColumn, s=self)
 
 
 # ----- Record_log_action(DB record as a class) -----

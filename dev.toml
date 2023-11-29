@@ -38,6 +38,11 @@ Start_as_LLM_server = false
 
 
 # ----- Some Notes -----
+# compact_main.type:
+#   0 = Board
+#   1 = Class
+#   2 = Event
+
 # compact_main.state:
 #   10 = alive
 #   -10 = deleted
