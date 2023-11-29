@@ -87,6 +87,10 @@ class RM():
 
     def export(self, selectColumn:str="name"):
         return "SELECT {sc} FROM compact_main WHERE type='{s.type}' AND name='{s.name}' AND realatedBoard='{s.relatedBoard}' AND relatedClass='{s.relatedClass}' AND state={s.state};".format(sc=selectColumn, s=self)
+    
+
+    def get_styles():
+        pass
 
 
 # ----- Record_log_action(DB record as a class) -----
