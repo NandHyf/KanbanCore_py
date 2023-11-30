@@ -71,20 +71,19 @@ class DB():
 
 
 # ----- Operating Cursor -----
-global oc
 oc = {
-"dt":str, # DBType
-"dp":str, # DBPath
+    "dt":"", # DBType
+    "dp":"", # DBPath
 
-"cp":list, # CurrentPath
-"pp":list, # PreviousPath
+    "cp":[], # CurrentPath
+    "pp":[], # PreviousPath
 
-"next_move":str,
+    "next_move":"",
 
-"tp":list, # TargetPath
-"tp_in":list, # ~ after command parameter "in"(&& before command parameter "to")
-"tp_to":list, # ~ after command parameter "to"
-"tp_attr":str # ~ like "-name" in "edit -name oldName to newName"
+    "tp":[], # TargetPath
+    "tp_in":[], # ~ after command parameter "in"(&& before command parameter "to")
+    "tp_to":[], # ~ after command parameter "to"
+    "tp_attr":[] # ~ like "-name" in "edit -name oldName to newName"
 }
 # some thoughts:
 # class oc():
@@ -92,41 +91,29 @@ oc = {
 
 
 # ----- Execute Methods -----
-def exec_one(sqls:str="", dbPath:str="", fetchAll:bool=True):
-    dbPath = oc["dp"]
-    con = sqlite3.connect(dbPath)
-    cur = con.cursor()
-    cur.execute(sqls)
-    con.commit()
+def exec(dbPath:str="", sqls:str=""):
+    if dbPath != "" and sqls != "":
+        con = sqlite3.connect(dbPath)
+        cur = con.cursor()
 
-    res = cur.fetchall()
-
-    if fetchAll == True:
-        return res
-
-    con.close()
-
-
-def direct():
-    ss = input("sqls: ")
-    exec_one(ss)
-
-
-def exec_many(dbPath:str=oc["dp"], sqls:dict={}, fetchAll:bool=True):
-    con = sqlite3.connect(dbPath)
-    cur = con.cursor()
-    res = {}
-
-    for sql in sqls:
-        cur.executemany(sqls)
+        cur.executescript(sqls)
         con.commit()
-        res = cur.fetchall()
-        res.append()
 
-    if fetchAll == True:
-        return res
-    
-    con.close()
+        con.close()
+
+
+def exec_fetchall(dbPath:str="", sqls:str="", fetchAll:bool=True):
+    if dbPath != "" and sqls != "":
+        con = sqlite3.connect(dbPath)
+        cur = con.cursor()
+
+        cur.execute(sqls)
+        con.commit()
+
+        if fetchAll == True:
+            return cur.fetchall()
+
+        con.close()
 
 
 def recordExist(dbPath:str, tableName:str, capitalize:bool=False, itemName:str="", returnBool:bool=True):
@@ -134,7 +121,7 @@ def recordExist(dbPath:str, tableName:str, capitalize:bool=False, itemName:str="
         tableName = tableName.capitalize()
 
     sqls = "SELECT name FROM {table} WHERE name='{name}';".format(table=tableName, name=itemName)
-    ie = exec_one(sqls)
+    ie = exec(sqls)
 
     if ie != [] and returnBool == False:
         return ie
@@ -156,4 +143,4 @@ def master():
 
 
 if __name__ == "__main__":
-    direct()
+    pass

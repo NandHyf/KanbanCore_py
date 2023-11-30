@@ -44,12 +44,23 @@ class kbc_controller():
             # Controller.InputCheck(app_commands)
 
 
+    def direct():
+        sqls = input("direct sqls(ONE SQL STATEMENT ONLY): ")
+        res = kbc_sqlite.exec_fetchall(kbc_sqlite.oc['dp'], sqls)
+        print("res: ", res)
+
+
     # [todo 4]
     def start():
-        global app_config
         app_config = kbc_controller.get_app_config()["app_config"]
+
+        kbc_sqlite.oc['dt'] = app_config['DBType']
+        kbc_sqlite.oc['dp'] = app_config['DBPath']
+
+        kbc_sqlite.oc['cp'] = ['home']
 
 
 if __name__ == "__main__":
     kbc_controller.start()
+    kbc_controller.direct()
     kbc_alt.pause()

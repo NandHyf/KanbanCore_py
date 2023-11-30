@@ -6,11 +6,13 @@
 
 def pause():
     input("pausing, press any key to continue: ")
+    exit()
 
 
 def Err(errCode, lang='en'):
     errText = ""
-    input("err ", errCode, ": ",  errText)
+    print("err ", errCode, ": ",  errText)
+    pause()
     exit()
 
 
