@@ -141,10 +141,5 @@ def recordExist(dbPath:str, tableName:str, capitalize:bool=False, itemName:str="
         print("err <Code>: unexpected error in existence check")
 
 
-# ----- Master process -----
-def master():
-    pass
-
-
 if __name__ == "__main__":
     pass
