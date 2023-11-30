@@ -5,7 +5,7 @@ import kbc_llm
 
 import datetime
 
-
+# class config def read(), reload()
 class kbc_controller():
     def get_app_config(returnDict:bool=True):
         tomls = kbc_toml.MatchTomlTable("dev.toml", "app_config", "dict")
@@ -23,15 +23,18 @@ class kbc_controller():
         pass
 
 
-    # [todo 3]
-    def inUTC(timeZone:int=0):
-        dt_now_UTC0 = str(datetime.datetime.now(datetime.timezone.utc))
-        return(dt_now_UTC0)
+    # [todo 4]
+    def display_in_timezone():
+        pass
     
 
     # [todo 2]
     # 前端只检查输入数量正确, 内容正确统一代回后端检查
     def validCheck():
+        pass
+
+
+    def makeLog():
         pass
 
 
@@ -43,10 +46,6 @@ class kbc_controller():
             
             # [todo 1]
             # Controller.InputCheck(app_commands)
-
-    
-    def makeLog():
-        pass
 
 
     # [todo 4]

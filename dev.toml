@@ -1,3 +1,17 @@
+# ----- App Configuration -----
+[app_config]
+StrictMode = true
+
+DBType = "sqlite3"
+DBPath = "dev.db"
+
+Lang = "en"
+ListStyle = "tree"
+DisplayTimeZone = "utc+8"
+
+Start_as_LLM_server = false
+
+
 # ----- DB Configuration -----
 # Just a better reference for dev.db, no functional use(yet)
 # ↓ DB name("dev".db)
@@ -13,6 +27,20 @@ c6 = "createdTime"
 c7 = "relatedBoard"
 c8 = "relatedClass"
 c9 = "state"
+createSqls = '''
+CREATE TABLE "compact_main" (
+ 	"id"	INTEGER NOT NULL,
+ 	"type"	INTEGER NOT NULL,
+ 	"name"	TEXT NOT NULL,
+ 	"dscrp"	TEXT NOT NULL,
+ 	"creator"	TEXT NOT NULL,
+ 	"createdTime"	TEXT NOT NULL,
+ 	"relatedBoard"	TEXT NOT NULL,
+ 	"relatedClass"	TEXT NOT NULL,
+ 	"state"	INTEGER NOT NULL,
+ 	PRIMARY KEY("id" AUTOINCREMENT)
+);
+'''
 
 [dev.log_action]
 c1_pk = "id INTEGER PRIMARY KEY ASC"
@@ -22,20 +50,18 @@ c4 = "type"
 c5 = "commitedAction"
 c6 = "operator"
 c7 = "status"
-
-
-# ----- App Configuration -----
-[app_config]
-StrictMode = true
-
-DBType = "sqlite3"
-DBPath = "dev.db"
-
-Lang = "en"
-ListStyle = "tree"
-DisplayTimeZone = "utc+8"
-
-Start_as_LLM_server = false
+createSqls = '''
+CREATE TABLE "log_action" (
+ 	"id"	INTEGER NOT NULL,
+ 	"uid"	TEXT NOT NULL,
+ 	"commitTime"	TEXT NOT NULL,
+ 	"type"	TEXT NOT NULL,
+ 	"action"	TEXT NOT NULL,
+ 	"operator"	TEXT NOT NULL,
+ 	"status"	TEXT NOT NULL,
+ 	PRIMARY KEY("id" AUTOINCREMENT)
+);
+'''
 
 
 # ----- Some Notes -----
@@ -49,7 +75,6 @@ compact_main.type = '''
 compact_main.state = '''
 -10 = deleted
 10 = alive
-
 '''
 
 log_action.status = '''
@@ -57,38 +82,8 @@ log_action.status = '''
 '''
 
 
-# Set integer prime key: <columnName> INTEGER PRIMARY KEY ASC
-# status: alive/deleted/unclassified(event only)
-#                                           ↓ Don't foget to write the method(s) for it
-# ListStyle: tree/md_table/LLM_md_table/<customName>
-
-
 # ----- used sqls -----
-# CREATE TABLE "compact_main" (
-# 	"id"	INTEGER NOT NULL,
-# 	"type"	INTEGER NOT NULL,
-# 	"name"	TEXT NOT NULL,
-# 	"dscrp"	TEXT NOT NULL,
-# 	"creator"	TEXT NOT NULL,
-# 	"createdTime"	TEXT NOT NULL,
-# 	"relatedBoard"	TEXT NOT NULL,
-# 	"relatedClass"	TEXT NOT NULL,
-# 	"state"	INTEGER NOT NULL,
-# 	PRIMARY KEY("id" AUTOINCREMENT)
-# );
-
-# CREATE TABLE "log_action" (
-# 	"id"	INTEGER NOT NULL,
-# 	"uid"	TEXT NOT NULL,
-# 	"commitTime"	TEXT NOT NULL,
-# 	"type"	TEXT NOT NULL,
-# 	"action"	TEXT NOT NULL,
-# 	"operator"	TEXT NOT NULL,
-# 	"status"	TEXT NOT NULL,
-# 	PRIMARY KEY("id" AUTOINCREMENT)
-# );
-
-
+# Set integer prime key: <columnName> INTEGER PRIMARY KEY ASC
 # INSERT INTO compact_main VALUES(null, 'class', 'CL1', 'dscrp', 'n.HE', datetime('now'), 'KB1, KB2', '', 'alive');
 
 # SELECT name FROM compact_main WHERE belongBoard like '%KB1%'
@@ -103,5 +98,3 @@ log_action.status = '''
 # UPDATE compact_main SET relatedBoard = replace(relatedBoard, 'KB2, ', '')  WHERE type='class' AND relatedBoard like '%KB2, %';
 # UPDATE compact_main SET relatedBoard = replace(relatedBoard, ', KB2', '')  WHERE type='class' AND relatedBoard like '%, KB2%';
 # UPDATE compact_main SET relatedBoard = replace(relatedBoard, 'KB2', '')  WHERE type='class' AND relatedBoard like '%KB2%';
-
-# Explanation of abbreviations

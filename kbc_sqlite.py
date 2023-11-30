@@ -1,5 +1,5 @@
 import sqlite3
-
+import kbc_alt
 
 # ----- Record_main(DB record as a class) -----
 class RM():
@@ -13,10 +13,6 @@ class RM():
         self.relatedBoard = relatedBoard
         self.relatedClass = relatedClass
         self.state = state
-
-
-    def direct():
-        pass
 
 
     def select(self, selectColumn:str="name"):
@@ -57,12 +53,7 @@ class RM():
 
 # ----- Record_log_action(DB record as a class) -----
 class RLA():
-    def __init__(self) -> None:
-        pass
-
-
-    def direct():
-        pass
+    pass
 
 
 # ----- DB as a class -----
@@ -77,6 +68,10 @@ class DB():
 
     def reGenerate():
         pass
+
+
+def direct():
+    pass
 
 
 # ----- Operating Cursor -----
@@ -103,6 +98,7 @@ oc = {
 def execute(dbPath):
     def dec(origin_func):
         pass
+
     con = sqlite3.connect(dbPath)
     cur = con.cursor()
 
@@ -149,7 +145,7 @@ def recordExist(dbPath:str, tableName:str, capitalize:bool=False, itemName:str="
         return False
     
     else:
-        # Alt.Err(errCode)
+        # kbc_alt.Err(errCode)
         print("err <Code>: unexpected error in existence check")
 
 
