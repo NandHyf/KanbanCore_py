@@ -2,6 +2,12 @@ import sqlite3
 
 
 # ----- Sqlite Methods -----
+def exec(dbPath):
+    def dec():
+        pass
+
+
+@exec("dev.db")
 def exec_one(dbPath:str, commands:list, fetchall:bool=False):
     con = sqlite3.connect(dbPath)
     cur = con.cursor()
@@ -19,8 +25,12 @@ def exec_one(dbPath:str, commands:list, fetchall:bool=False):
 
     return 0
 
+@exec()
+def exec_many():
+    pass
 
-def isExist(dbPath:str, tableName:str, capitalize:bool=False, itemName:str="", returnBool:bool=True):
+
+def recordExist(dbPath:str, tableName:str, capitalize:bool=False, itemName:str="", returnBool:bool=True):
     # [todo 4] 这里面.capitalize()后面需要根据config.toml里面的内容判断
     # 可能也不用, 因为KBCLEV的表名和本身并无关系
     if capitalize == True:
@@ -99,9 +109,13 @@ class RLA():
 
 
 # ----- Auto generate DB from config.toml -----
-def genDB():
-    # model IE?
-    # over write?
-    # exec
-    pass
+class DB():
+    def __init__(self) -> None:
+        pass
 
+    def dbExist():
+        pass
+
+
+    def reGenerate():
+        pass
