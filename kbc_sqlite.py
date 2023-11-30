@@ -3,18 +3,22 @@ import sqlite3
 
 # ----- Record_main(DB record as a class) -----
 class RM():
-    def __init__(self, type:str="", name:str="", dscrp:str="", creator:str="", relatedBoard:str="", relatedClass:str="", state:int=-10) -> None:
+    def __init__(self, type:str="", name:str="", dscrp:str="", creator:str="", createdTime:str="datetime('now')", relatedBoard:str="", relatedClass:str="", state:int=-10) -> None:
         self.id = "null"
         self.type = type
         self.name = name
         self.dscrp = dscrp
         self.creator = creator
-        self.createdTime = "datetime('now')"
+        self.createdTime = createdTime
         self.relatedBoard = relatedBoard
         self.relatedClass = relatedClass
         self.state = state
 
-    
+
+    def direct():
+        pass
+
+
     def select(self, selectColumn:str="name"):
         return "SELECT {sc} FROM compact_main WHERE type='{s.type}' AND name='{s.name}' AND realatedBoard='{s.relatedBoard}' AND relatedClass='{s.relatedClass}' AND state={s.state};".format(sc=selectColumn, s=self)
     
@@ -53,13 +57,19 @@ class RM():
 
 # ----- Record_log_action(DB record as a class) -----
 class RLA():
-    pass
+    def __init__(self) -> None:
+        pass
 
 
-# ----- Auto generate DB from config.toml -----
+    def direct():
+        pass
+
+
+# ----- DB as a class -----
 class DB():
     def __init__(self) -> None:
         pass
+
 
     def dbExist():
         pass
@@ -89,7 +99,7 @@ oc = {
 #   def get_oc(), def move_oc()
 
 
-# ----- Sqlite Methods -----
+# ----- Execute Methods -----
 def execute(dbPath):
     def dec(origin_func):
         pass
@@ -126,7 +136,7 @@ def recordExist(dbPath:str, tableName:str, capitalize:bool=False, itemName:str="
     if capitalize == True:
         tableName = tableName.capitalize()
 
-    sqls = "SELECT name FROM {table} WHERE name='{name}'".format(table=tableName, name=itemName)
+    sqls = "SELECT name FROM {table} WHERE name='{name}';".format(table=tableName, name=itemName)
     ie = exec_one(dbPath, sqls)
 
     if ie != [] and returnBool == False:
@@ -143,5 +153,6 @@ def recordExist(dbPath:str, tableName:str, capitalize:bool=False, itemName:str="
         print("err <Code>: unexpected error in existence check")
 
 
+# ----- Master process -----
 def master():
     pass

@@ -31,7 +31,7 @@ class kbc_controller():
 
     # [todo 2]
     # 前端只检查输入数量正确, 内容正确统一代回后端检查
-    def inputHandler():
+    def validCheck():
         pass
 
 
