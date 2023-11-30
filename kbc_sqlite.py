@@ -93,13 +93,17 @@ oc = {
 # ----- Execute Methods -----
 def exec(dbPath:str="", sqls:str=""):
     if dbPath != "" and sqls != "":
-        con = sqlite3.connect(dbPath)
-        cur = con.cursor()
+        try:
+            con = sqlite3.connect(dbPath)
+            cur = con.cursor()
 
-        cur.executescript(sqls)
-        con.commit()
+            cur.executescript(sqls)
+            con.commit()
 
-        con.close()
+            con.close()
+            
+        except sqlite3.OperationalError:
+            print(sqlite3.OperationalError.__name__)
 
 
 def exec_fetchall(dbPath:str="", sqls:str="", fetchAll:bool=True):
