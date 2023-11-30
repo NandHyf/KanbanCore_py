@@ -6,25 +6,6 @@ import kbc_llm
 import datetime
 
 
-oc = {
-"dt":str, # DBType
-"dp":str, # DBPath
-
-"cp":list, # CurrentPath
-"pp":list, # PreviousPath
-
-"next_move":str,
-
-"tp":list, # TargetPath
-"tp_in":list, # ~ after command parameter "in"(&& before command parameter "to")
-"tp_to":list, # ~ after command parameter "to"
-"tp_attr":str # ~ like "-name" in "edit -name oldName to newName"
-}
-# some thoughts:
-# class oc():
-#   def get_oc(), def move_oc()
-
-
 class kbc_controller():
     def get_app_config(returnDict:bool=True):
         tomls = kbc_toml.MatchTomlTable("dev.toml", "app_config", "dict")

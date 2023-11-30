@@ -7,10 +7,7 @@ c1_pk = "id INTEGER PRIMARY KEY ASC"
 c2 = "type"
 c3 = "name"
 c4 = "dscrp"
-#    .position = [(x1,y1), (x2, y2), z]
-#    .border
-#    .radius
-#    .bgcolor
+#     .style = {position : [(x1,y1), (x2, y2), z], bgcolor, radius, border, }
 c5 = "creator"
 c6 = "createdTime"
 c7 = "relatedBoard"
@@ -42,16 +39,22 @@ Start_as_LLM_server = false
 
 
 # ----- Some Notes -----
-# compact_main.type:
-#   0 = Board
-#   1 = Class
-#   2 = Event
+[notes]
+compact_main.type = '''
+0 = Board
+1 = Class
+2 = Event
+'''
 
-# compact_main.state:
-#   10 = alive
-#   -10 = deleted
+compact_main.state = '''
+-10 = deleted
+10 = alive
 
-# log_action.status:
+'''
+
+log_action.status = '''
+
+'''
 
 
 # Set integer prime key: <columnName> INTEGER PRIMARY KEY ASC
