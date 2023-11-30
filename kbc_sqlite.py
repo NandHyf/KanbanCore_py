@@ -70,10 +70,6 @@ class DB():
         pass
 
 
-def direct():
-    pass
-
-
 # ----- Operating Cursor -----
 oc = {
 "dt":str, # DBType
@@ -91,49 +87,50 @@ oc = {
 }
 # some thoughts:
 # class oc():
-#   def get_oc(), def move_oc()
+#   def read_oc(), def move_oc()
 
 
 # ----- Execute Methods -----
 def execute(dbPath):
     def dec(origin_func):
         pass
+        def new_exec():
+            con = sqlite3.connect(dbPath)
+            cur = con.cursor()
 
-    con = sqlite3.connect(dbPath)
-    cur = con.cursor()
+            cur.execute(commands)
+            con.commit()
 
-    cur.execute(commands)
-    con.commit()
-
-    # if fetchall == input, return 0?
-    if fetchall == True:
-        re = cur.fetchall()
-        return re
-    
-    cur.close()
-    con.close()
-    def dec():
-        pass
+            # if fetchall == input, return 0?
+            if fetchall == True:
+                re = cur.fetchall()
+                return re
+            
+            cur.close()
+            con.close()    
 
 
 @execute(oc["dp"])
-def exec_one(dbPath:str, commands:list, fetchall:bool=False):
+def exec_one(sqls:str="", fetchall:bool=False):
+    return 
+
+
+@execute(oc["dp"])
+def exec_many(sqls:dict={}, fetchall:bool=False):
     pass
 
 
 @execute(oc["dp"])
-def exec_many():
+def direct():
     pass
 
 
 def recordExist(dbPath:str, tableName:str, capitalize:bool=False, itemName:str="", returnBool:bool=True):
-    # [todo 4] 这里面.capitalize()后面需要根据config.toml里面的内容判断
-    # 可能也不用, 因为KBCLEV的表名和本身并无关系
     if capitalize == True:
         tableName = tableName.capitalize()
 
     sqls = "SELECT name FROM {table} WHERE name='{name}';".format(table=tableName, name=itemName)
-    ie = exec_one(dbPath, sqls)
+    ie = exec_one(sqls)
 
     if ie != [] and returnBool == False:
         return ie

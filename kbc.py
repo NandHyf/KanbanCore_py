@@ -9,11 +9,9 @@ import datetime
 class kbc_controller():
     def get_app_config(returnDict:bool=True):
         tomls = kbc_toml.MatchTomlTable("dev.toml", "app_config", "dict")
-        global app_config
-        app_config = tomls["app_config"]
 
         if returnDict == True:
-            return app_config
+            return tomls
         
 
     def get_help():
@@ -24,12 +22,11 @@ class kbc_controller():
 
 
     # [todo 4]
-    def display_in_timezone():
+    def display_in_timezone(timezone:int=0):
         pass
     
 
     # [todo 2]
-    # 前端只检查输入数量正确, 内容正确统一代回后端检查
     def validCheck():
         pass
 
@@ -39,9 +36,8 @@ class kbc_controller():
 
 
     def transitCommand():
-        # do while or for (1)
-        while(1):
-            app_commands = input(currentPath + "/: ", ).split(" ")
+        while(True):
+            pass
             # Input exception check
             
             # [todo 1]
@@ -50,13 +46,10 @@ class kbc_controller():
 
     # [todo 4]
     def start():
-        pass
-
-        # 2. Valid DB
-        # startState = Stateful.Translator(['/', app_config["dbPath"], app_config["dbType"]])
-        # print(startState)
-        # kbc_controller.TransitCommand()
+        global app_config
+        app_config = kbc_controller.get_app_config()["app_config"]
 
 
 if __name__ == "__main__":
-    kbc_controller.start()   
+    kbc_controller.start()
+    kbc_alt.pause()

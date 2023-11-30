@@ -3,6 +3,11 @@
 # err 1: correct DB not found
 # -----
 
+
+def pause():
+    input("pausing, press any key to continue: ")
+
+
 def Err(errCode, lang='en'):
     errText = ""
     input("err ", errCode, ": ",  errText)
