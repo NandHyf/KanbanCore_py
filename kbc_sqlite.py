@@ -104,16 +104,20 @@ def exec(dbPath:str="", sqls:str=""):
 
 def exec_fetchall(dbPath:str="", sqls:str="", fetchAll:bool=True):
     if dbPath != "" and sqls != "":
-        con = sqlite3.connect(dbPath)
-        cur = con.cursor()
+        try:
+            con = sqlite3.connect(dbPath)
+            cur = con.cursor()
 
-        cur.execute(sqls)
-        con.commit()
+            cur.execute(sqls)
+            con.commit()
 
-        if fetchAll == True:
-            return cur.fetchall()
+            if fetchAll == True:
+                return cur.fetchall()
 
-        con.close()
+            con.close()
+
+        except sqlite3.OperationalError:
+            print(sqlite3.OperationalError.__name__)
 
 
 def recordExist(dbPath:str, tableName:str, capitalize:bool=False, itemName:str="", returnBool:bool=True):

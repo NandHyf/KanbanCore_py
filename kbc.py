@@ -57,6 +57,8 @@ class kbc_controller():
         kbc_sqlite.oc['dt'] = app_config['DBType']
         kbc_sqlite.oc['dp'] = app_config['DBPath']
 
+        # if start_as_llmserver == True:
+        
         kbc_sqlite.oc['cp'] = ['home']
 
 
