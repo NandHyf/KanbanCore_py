@@ -71,6 +71,7 @@ class DB():
 
 
 # ----- Operating Cursor -----
+global oc
 oc = {
 "dt":str, # DBType
 "dp":str, # DBPath
@@ -91,38 +92,41 @@ oc = {
 
 
 # ----- Execute Methods -----
-def execute(dbPath):
-    def dec(origin_func):
-        pass
-        def new_exec():
-            con = sqlite3.connect(dbPath)
-            cur = con.cursor()
+def exec_one(sqls:str="", dbPath:str="", fetchAll:bool=True):
+    dbPath = oc["dp"]
+    con = sqlite3.connect(dbPath)
+    cur = con.cursor()
+    cur.execute(sqls)
+    con.commit()
 
-            cur.execute(commands)
-            con.commit()
+    res = cur.fetchall()
 
-            # if fetchall == input, return 0?
-            if fetchall == True:
-                re = cur.fetchall()
-                return re
-            
-            cur.close()
-            con.close()    
+    if fetchAll == True:
+        return res
+
+    con.close()
 
 
-@execute(oc["dp"])
-def exec_one(sqls:str="", fetchall:bool=False):
-    return 
-
-
-@execute(oc["dp"])
-def exec_many(sqls:dict={}, fetchall:bool=False):
-    pass
-
-
-@execute(oc["dp"])
 def direct():
-    pass
+    ss = input("sqls: ")
+    exec_one(ss)
+
+
+def exec_many(dbPath:str=oc["dp"], sqls:dict={}, fetchAll:bool=True):
+    con = sqlite3.connect(dbPath)
+    cur = con.cursor()
+    res = {}
+
+    for sql in sqls:
+        cur.executemany(sqls)
+        con.commit()
+        res = cur.fetchall()
+        res.append()
+
+    if fetchAll == True:
+        return res
+    
+    con.close()
 
 
 def recordExist(dbPath:str, tableName:str, capitalize:bool=False, itemName:str="", returnBool:bool=True):
@@ -149,3 +153,7 @@ def recordExist(dbPath:str, tableName:str, capitalize:bool=False, itemName:str="
 # ----- Master process -----
 def master():
     pass
+
+
+if __name__ == "__main__":
+    direct()

@@ -98,3 +98,17 @@ log_action.status = '''
 # UPDATE compact_main SET relatedBoard = replace(relatedBoard, 'KB2, ', '')  WHERE type='class' AND relatedBoard like '%KB2, %';
 # UPDATE compact_main SET relatedBoard = replace(relatedBoard, ', KB2', '')  WHERE type='class' AND relatedBoard like '%, KB2%';
 # UPDATE compact_main SET relatedBoard = replace(relatedBoard, 'KB2', '')  WHERE type='class' AND relatedBoard like '%KB2%';
+a ='''
+sqls = str(func)
+con = sqlite3.connect(dbPath)
+cur = con.cursor()
+cur.execute(sqls)
+con.commit()
+
+res = cur.fetchall()
+
+if fetchAll == True:
+    return res
+
+con.close()
+'''
