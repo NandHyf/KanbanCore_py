@@ -1,6 +1,7 @@
 import sqlite3
 import kbc_alt
 
+
 # ----- Record_main(DB record as a class) -----
 class RM():
     def __init__(self, type:str="", name:str="", dscrp:str="", creator:str="", createdTime:str="datetime('now')", relatedBoard:str="", relatedClass:str="", statement:int=-10) -> None:
