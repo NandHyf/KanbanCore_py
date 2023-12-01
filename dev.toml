@@ -13,20 +13,11 @@ Start_as_LLM_server = false
 
 
 # ----- DB Configuration -----
+# Not recommended to modify the following parameters unless you modify the program synchronously
 # Just a better reference for dev.db, no functional use(yet)
 # ↓ DB name("dev".db)
 #         ↓ Table name
 [dev.compact_main]
-c1_pk = "id INTEGER PRIMARY KEY ASC"
-c2 = "type"
-c3 = "name"
-c4 = "dscrp"
-#     .style = {position : [(x1,y1), (x2, y2), z], bgcolor, radius, border, }
-c5 = "creator"
-c6 = "createdTime"
-c7 = "relatedBoard"
-c8 = "relatedClass"
-c9 = "state"
 createSqls = '''
 CREATE TABLE "compact_main" (
  	"id"	INTEGER NOT NULL,
@@ -41,15 +32,10 @@ CREATE TABLE "compact_main" (
  	PRIMARY KEY("id" AUTOINCREMENT)
 );
 '''
+state.deleted = -10
+state.alive = 10
 
 [dev.log_action]
-c1_pk = "id INTEGER PRIMARY KEY ASC"
-c2 = "uid" # UNIQUE
-c3 = "commitTime"
-c4 = "type"
-c5 = "commitedAction"
-c6 = "operator"
-c7 = "status"
 createSqls = '''
 CREATE TABLE "log_action" (
  	"id"	INTEGER NOT NULL,
@@ -65,50 +51,6 @@ CREATE TABLE "log_action" (
 
 
 # ----- Some Notes -----
-[notes]
-compact_main.type = '''
-0 = Board
-1 = Class
-2 = Event
-'''
-
-compact_main.state = '''
--10 = deleted
-10 = alive
-'''
-
-log_action.status = '''
-
-'''
 
 
 # ----- used sqls -----
-# Set integer prime key: <columnName> INTEGER PRIMARY KEY ASC
-# INSERT INTO compact_main VALUES(null, 'class', 'CL1', 'dscrp', 'n.HE', datetime('now'), 'KB1, KB2', '', 'alive');
-
-# SELECT name FROM compact_main WHERE belongBoard like '%KB1%'
-# SELECT name, dscrp FROM compact_main WHERE dscrp like '%KB1%'
-# SELECT name, dscrp FROM compact_main WHERE dscrp like '%_%KB1%'
-
-# INSERT INTO compact_main VALUES(null, 'class', 'CL2', '_usingBoard:KB1, KB2', 'n.HE', datetime('now'), '', '', 'alive');
-# UPDATE main SET relatedBoard='KB1, KB2' WHERE type='class' AND name='CL2'
-# SELECT name FROM main WHERE type='class' AND relatedBoard like '%KB2%'
-
-# delete class 3 combo:
-# UPDATE compact_main SET relatedBoard = replace(relatedBoard, 'KB2, ', '')  WHERE type='class' AND relatedBoard like '%KB2, %';
-# UPDATE compact_main SET relatedBoard = replace(relatedBoard, ', KB2', '')  WHERE type='class' AND relatedBoard like '%, KB2%';
-# UPDATE compact_main SET relatedBoard = replace(relatedBoard, 'KB2', '')  WHERE type='class' AND relatedBoard like '%KB2%';
-a ='''
-sqls = str(func)
-con = sqlite3.connect(dbPath)
-cur = con.cursor()
-cur.execute(sqls)
-con.commit()
-
-res = cur.fetchall()
-
-if fetchAll == True:
-    return res
-
-con.close()
-'''

@@ -46,7 +46,7 @@ class kbc_controller():
 
     def direct():
         sqls = input("direct sqls(ONE SQL STATEMENT ONLY): ")
-        res = kbc_sqlite.exec_fetchall(kbc_sqlite.oc['dp'], sqls)
+        res = kbc_sqlite.exec(kbc_sqlite.oc['dp'], sqls, True)
         print("res: ", res)
 
 
@@ -64,5 +64,4 @@ class kbc_controller():
 
 if __name__ == "__main__":
     kbc_controller.start()
-    kbc_controller.direct()
     kbc_alt.pause()
