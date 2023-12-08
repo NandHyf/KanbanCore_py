@@ -6,14 +6,22 @@
 
 def pause():
     input("pausing, press any key to continue: ")
-    exit()
+    # exit()
 
 
-def Err(errCode, lang='en'):
-    errText = ""
-    print("err ", errCode, ": ",  errText)
+def Err(errCode, sec_respond:bool=False):
+    if errCode == 0:
+        print("err 0: syntax error")
+
+    elif errCode == 1:
+        print("err 1: ")
+
+    elif errCode == 2:
+        pass
+
     pause()
-    exit()
+    # exit()
+
 
 
 def Warn():

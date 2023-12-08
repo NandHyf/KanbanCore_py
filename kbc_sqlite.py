@@ -4,18 +4,19 @@ import kbc_alt
 
 # ----- Record_main(DB record as a class) -----
 class RM():
-    def __init__(self, type:str="", name:str="", dscrp:str="", creator:str="", createdTime:str="datetime('now')", relatedBoard:str="", relatedClass:str="", statement:int=-10) -> None:
+    def __init__(self, type:str="", name:str="", dscrp:str="", style:str="", creator:str="", createdTime:str="datetime('now')", relatedBoard:str="", relatedClass:str="", statement:str="=-10") -> None:
         self.id = "null"
         self.type = type
         self.name = name
         self.dscrp = dscrp
+        self.style = style
         self.creator = creator
         self.createdTime = createdTime
         self.relatedBoard = relatedBoard
         self.relatedClass = relatedClass
         self.statement = statement
 
-
+    # WHERE {swc}.format(swc=select_where)
     def select(self, selectColumn:str="name"):
         return "SELECT {sc} FROM compact_main WHERE type={s.type} AND name='{s.name}' AND realatedBoard='{s.relatedBoard}' AND relatedClass='{s.relatedClass}' AND state{s.statement};".format(sc=selectColumn, s=self)
     

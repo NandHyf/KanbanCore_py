@@ -20,16 +20,17 @@ Start_as_LLM_server = false
 [dev.compact_main]
 createSqls = '''
 CREATE TABLE "compact_main" (
- 	"id"	INTEGER NOT NULL,
- 	"type"	INTEGER NOT NULL,
- 	"name"	TEXT NOT NULL,
- 	"dscrp"	TEXT NOT NULL,
- 	"creator"	TEXT NOT NULL,
- 	"createdTime"	TEXT NOT NULL,
- 	"relatedBoard"	TEXT NOT NULL,
- 	"relatedClass"	TEXT NOT NULL,
- 	"state"	INTEGER NOT NULL,
- 	PRIMARY KEY("id" AUTOINCREMENT)
+	"id"	INTEGER NOT NULL,
+	"type"	INTEGER NOT NULL,
+	"name"	TEXT NOT NULL,
+	"dscrp"	TEXT NOT NULL,
+	"style"	TEXT NOT NULL,
+	"creator"	TEXT NOT NULL,
+	"createdTime"	TEXT NOT NULL,
+	"relatedBoard"	TEXT NOT NULL,
+	"relatedClass"	TEXT NOT NULL,
+	"state"	INTEGER NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 '''
 state.deleted = -10

@@ -27,21 +27,75 @@ class kbc_controller():
     
 
     # [todo 2]
-    def validCheck():
-        pass
+    def validCheck(c_list:list=[]):
+        # c_list == 'c'ommand 'list'
+
+        # 1. Separate command
+
+
+        # 2. Basic syntax check
+        c_list = input("input command: ").split()
+        
+        # "/": 0, "..": 1
+        commandType = {"select": 2, "add": 3, "delete": 4, "edit":5, "move": 6}
+        objType = {"board": 0, "class": 1, "event": 2}
+
+        try:
+            if c_list[0] == "/":
+                print("command is 'back_home' ")
+                c_list = [0]
+                print(c_list)
+                return 0
+            
+            elif c_list[0] == "..":
+                print("command is 'back_previous' ")
+                c_list[0] = 1
+                print(c_list)
+                return 0
+            
+            elif c_list[0] in commandType and c_list[1] in objType:
+                print("Valid true")
+                
+                if c_list[1] == "board":
+
+                    if "in" in c_list:
+                        kbc_alt.Err(0)
+
+                    elif "move" in c_list:
+                        kbc_alt.Err(0)
+
+                    c_list[0] = commandType[c_list[0]]
+                    c_list[1] = objType[c_list[1]]
+
+
+                elif c_list[1] == "class":
+                    
+                    if "move" in c_list:
+                        kbc_alt.Err(0)
+
+                    c_list[0] = commandType[c_list[0]]
+                    c_list[1] = objType[c_list[1]]                
+
+
+                elif c_list[1] == "event":
+                    c_list[0] = commandType[c_list[0]]
+                    c_list[1] = objType[c_list[1]]
+                
+                print("command list: ", c_list)
+
+            else:
+                kbc_alt.Err(0)
+            
+
+        except IndexError:
+            kbc_alt.Err(0)
+
+
+        # 3. Executable check
 
 
     def makeLog():
         pass
-
-
-    def transitCommand():
-        while(True):
-            pass
-            # Input exception check
-            
-            # [todo 1]
-            # Controller.InputCheck(app_commands)
 
 
     def direct():
@@ -63,5 +117,7 @@ class kbc_controller():
 
 
 if __name__ == "__main__":
-    kbc_controller.start()
-    kbc_alt.pause()
+    # kbc_controller.start()
+    # kbc_alt.pause()
+    while(1):
+        kbc_controller.validCheck()
