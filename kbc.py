@@ -28,20 +28,17 @@ class kbc_controller():
 
     # [todo 2]
     def validCheck(c_list:list=[]):
-        # c_list == 'c'ommand 'list'
-
-        # 1. Separate command
-
-
-        # 2. Basic syntax check
-        c_list = input("input command: ").split()
-        
-        # "/": 0, "..": 1
+        # c_list == 'c'ommand 'list'     
+        #             "/": 0, "..": 1,
         commandType = {"select": 2, "add": 3, "delete": 4, "edit":5, "move": 6}
-        objType = {"board": 0, "class": 1, "event": 2}
+        objType = {"board": 3, "class": 2, "event": 1}
 
         try:
-            if c_list[0] == "/":
+            if ".." in c_list and "/" in c_list:
+                kbc_alt.Err(0)
+                return 0 
+
+            elif c_list[0] == "/":
                 print("command is 'back_home' ")
                 c_list = [0]
                 print(c_list)
@@ -65,7 +62,7 @@ class kbc_controller():
                         kbc_alt.Err(0)
 
                     c_list[0] = commandType[c_list[0]]
-                    c_list[1] = objType[c_list[1]]
+                    c_list[1] = 3
 
 
                 elif c_list[1] == "class":
@@ -74,12 +71,15 @@ class kbc_controller():
                         kbc_alt.Err(0)
 
                     c_list[0] = commandType[c_list[0]]
-                    c_list[1] = objType[c_list[1]]                
+                    c_list[1] = 2             
 
 
                 elif c_list[1] == "event":
                     c_list[0] = commandType[c_list[0]]
-                    c_list[1] = objType[c_list[1]]
+                    c_list[1] = 1
+
+                else:
+                    kbc_alt.Err(0)
                 
                 print("command list: ", c_list)
 
@@ -116,8 +116,12 @@ class kbc_controller():
         kbc_sqlite.oc['cp'] = ['home']
 
 
+        while(True):
+            c_list = input("input command: ").split()
+            kbc_controller.validCheck(c_list)
+
+
+
 if __name__ == "__main__":
-    # kbc_controller.start()
+    kbc_controller.start()
     # kbc_alt.pause()
-    while(1):
-        kbc_controller.validCheck()
