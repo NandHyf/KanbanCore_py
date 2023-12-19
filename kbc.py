@@ -29,8 +29,8 @@ class kbc_controller():
     # [todo 2]
     def validCheck(c_list:list=[]):
         # c_list == 'c'ommand 'list'     
-        #             "/": 0, "..": 1,
-        commandType = {"select": 2, "add": 3, "delete": 4, "edit":5, "move": 6}
+        #             
+        commandType = {"/": 0, "..": 1, "select": 1, "add": 1, "delete": 1, "edit": 1, "move": 1, "to": 1, "in": 1}
         objType = {"board": 3, "class": 2, "event": 1}
 
         try:
@@ -50,48 +50,11 @@ class kbc_controller():
                 print(c_list)
                 return 0
             
-            elif c_list[0] in commandType and c_list[1] in objType:
-                print("Valid true")
-                
-                if c_list[1] == "board":
 
-                    if "in" in c_list:
-                        kbc_alt.Err(0)
-
-                    elif "move" in c_list:
-                        kbc_alt.Err(0)
-
-                    c_list[0] = commandType[c_list[0]]
-                    c_list[1] = 3
-
-
-                elif c_list[1] == "class":
-                    
-                    if "move" in c_list:
-                        kbc_alt.Err(0)
-
-                    c_list[0] = commandType[c_list[0]]
-                    c_list[1] = 2             
-
-
-                elif c_list[1] == "event":
-                    c_list[0] = commandType[c_list[0]]
-                    c_list[1] = 1
-
-                else:
-                    kbc_alt.Err(0)
-                
-                print("command list: ", c_list)
-
-            else:
-                kbc_alt.Err(0)
-            
+            # 指令总和 > 某个数说明后面还有不合规的语法
 
         except IndexError:
             kbc_alt.Err(0)
-
-
-        # 3. Executable check
 
 
     def makeLog():
