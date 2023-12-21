@@ -28,30 +28,23 @@ class kbc_controller():
 
     # [todo 2]
     def validCheck(c_list:list=[]):
-        # c_list == 'c'ommand 'list'     
-        #             
+        # c_list == 'c'ommand 'list'
         commandType = {"/": 0, "..": 1, "select": 1, "add": 1, "delete": 1, "edit": 1, "move": 1, "to": 1, "in": 1}
         objType = {"board": 3, "class": 2, "event": 1}
 
+        # split multi commands
+
+
+        # valid each
         try:
-            if ".." in c_list and "/" in c_list:
+
+            counter = 0
+
+            if counter > 5:
                 kbc_alt.Err(0)
-                return 0 
-
-            elif c_list[0] == "/":
-                print("command is 'back_home' ")
-                c_list = [0]
-                print(c_list)
-                return 0
-            
-            elif c_list[0] == "..":
-                print("command is 'back_previous' ")
-                c_list[0] = 1
-                print(c_list)
-                return 0
             
 
-            # 指令总和 > 某个数说明后面还有不合规的语法
+            # 指令总和大于或者小于某个数就说明后面还有不合规的语法
 
         except IndexError:
             kbc_alt.Err(0)
